@@ -2,7 +2,7 @@ import datetime
 name = "US058GMET-GR1mdl.0058_0240_02400F0RL1998073100_0007_008500-000000air_temp"
 
 
-    #Parse input filename into interger components to formulate date run
+    #Parse input filename into integer components to formulate date run
 def getDate(name):
     year = int(name[36:40])
     month = int(name[40:42])
