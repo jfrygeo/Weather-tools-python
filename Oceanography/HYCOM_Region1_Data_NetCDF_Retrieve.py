@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Name:        HYCOM_Data_NetCDF_Retrieve
+# Name:        HYCOM_Data_NetCDF_Retrieve from Region 1
 # Purpose:     Retrieve latest NetCDF from HYCOM. HYCOM forecasts 7 days so this script downloads the data that is
 # 7 days ahead of today's date
 #
@@ -21,33 +21,32 @@ scriptPath = sys.path[0]
 downloadfolder = sys.path[0] + "\\Scratch\\HYCOM\\"
 
 ##Base Urls where data resides
-baseurl = "ftp://ftp.hycom.org/datasets/GLBa0.08/expt_91.2/2017/salt/"
+baseurl = "https://ecowatch.ncddc.noaa.gov/thredds/fileServer/hycom_region1/"
 
 #Intermediate file names
-saltfront = "archv.2017_"
-saltback = "_00_3zs.nc"
-
+HYCOMFileName = "hycom_glb_regp01_"
+#tau indicates the time at which the forecast is for. You may want to add a few more times to download
+tau = "t000.nc"
 
 #Calculate local time of today
-todaysdoy = str(datetime.datetime.now())
-print (todaysdoy)
+todaysdate = str(datetime.datetime.now())
+print (todaysdate)
 
 #Calculate local time's day of year
-formattime = time.strftime("%j",time.strptime(todaysdoy,"%Y-%m-%d %H:%M:%S.%f"))
+formattime = time.strftime("%Y%m%d",time.strptime(todaysdate,"%Y-%m-%d %H:%M:%S.%f"))
 print (formattime)
 
-#Add 7 days to local time's day of year
-doy7 = int(formattime) + 7
-print (doy7)
-
+#format date to yesterday
+yearmonthdate = str(int(formattime) - 1)
+print (yearmonthdate)
 
 #Format download location with file name
-downloadlocationSalt = str(os.path.join(downloadfolder) + saltfront + str(doy7) + saltback)
-print (downloadlocationSalt)
+downloadlocationReg1 = str(os.path.join(downloadfolder) + HYCOMFileName + yearmonthdate + tau)
+print (downloadlocationReg1)
 
 #Format string request for Sea Surface Temperature
-dlHYCOMSalt= str(baseurl + saltfront + str(doy7) + saltback)
-print (dlHYCOMSalt)
+dlHYCOMReg1= str(baseurl + yearmonthdate + "/" + HYCOMFileName + yearmonthdate + "00_" + tau)
+print (dlHYCOMReg1)
 
 # Format string request for download
 if sys.version_info[0]== 3:
@@ -55,7 +54,7 @@ if sys.version_info[0]== 3:
     #What Python
     sysver = sys.version
     print (sysver)
-    urllib.request.urlretrieve(dlHYCOMSalt, downloadlocationSalt)
+    urllib.request.urlretrieve(dlHYCOMReg1, downloadlocationReg1)
     print ("Downloaded HYCOM Data")
 
 else:
@@ -63,7 +62,7 @@ else:
         import urllib
         sysver = sys.version
         print (sysver)
-        urllib.request.urlretrieve(dlHYCOMSalt, downloadlocationSalt)
+        urllib.request.urlretrieve(dlHYCOMReg1, downloadlocationReg1)
         print ("Downloaded HYCOM Data")
 
 
