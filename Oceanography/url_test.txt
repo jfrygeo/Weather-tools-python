@@ -1,0 +1,2 @@
+ftp://polar.ncep.noaa.gov/pub/history/waves/multi_1/201008/gribs/multi_1.glo_30m.wind.201008.grb2
+ftp://polar.ncep.noaa.gov/pub/history/waves/multi_1/201009/gribs/multi_1.glo_30m.wind.201009.grb2
